@@ -58,6 +58,11 @@ public class MinHeap {
         return element;
     }
 
+    public int peek() {
+        if (isEmpty()) throw new IllegalStateException("Dmpty");
+        return this.heap[0];
+    }
+
     public int size() {
         return this.tail + 1;
     }
