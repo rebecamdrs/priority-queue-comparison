@@ -29,7 +29,7 @@ public class MinHeap {
     }
 
     public int parent(int index) {
-        return (index + 1) / 2;
+        return (index - 1) / 2;
     }
 
     public void insert(int value) {
@@ -39,8 +39,8 @@ public class MinHeap {
         this.tail += 1;
         this.heap[this.tail] = value;
         
-        int i = tail;
-        while (i > 0 && this.heap[parent(i)] < this.heap[i]) {
+        int i = this.tail;
+        while (i > 0 && this.heap[parent(i)] > this.heap[i]) {
             swap(i, parent(i));
             i = parent(i);
         }
@@ -67,8 +67,9 @@ public class MinHeap {
         return this.tail + 1;
     }
     
+    @Override
     public String toString() {
-        return Arrays.toString(this.heap);
+        return Arrays.toString(Arrays.copyOfRange(this.heap, 0, this.tail + 1));
     }
 
     private void buildHeap() {
@@ -91,7 +92,7 @@ public class MinHeap {
         int min = index;
 
         if (this.heap[left] < this.heap[min]) min = left;
-        if (this.heap[right] < this.heap[min]) min = right;
+        if (isValidIndex(right) && this.heap[right] < this.heap[min]) min = right;
 
         return min;
     }
@@ -105,8 +106,8 @@ public class MinHeap {
     } 
 
     private void swap(int i, int j) {
-        int temp = i;
-        this.heap[i] = j;
+        int temp = this.heap[i];
+        this.heap[i] = this.heap[j];
         this.heap[j] = temp;
     }
 
