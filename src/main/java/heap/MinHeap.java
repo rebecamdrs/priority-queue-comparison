@@ -32,7 +32,7 @@ public class MinHeap {
         return (index - 1) / 2;
     }
 
-    public void insert(int value) {
+    public void add(int value) {
         if (this.tail >= (this.heap.length - 1))
             resize();
     
