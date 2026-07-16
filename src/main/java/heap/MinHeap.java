@@ -1,7 +1,10 @@
 package heap;
+
 import java.util.Arrays;
 
-public class MinHeap {
+import model.InterfaceEstrutura;
+
+public class MinHeap implements InterfaceEstrutura {
     private int[] heap;
     private int tail;
 
@@ -32,6 +35,7 @@ public class MinHeap {
         return (index - 1) / 2;
     }
 
+    @Override
     public void add(int value) {
         if (this.tail >= (this.heap.length - 1))
             resize();
@@ -46,7 +50,8 @@ public class MinHeap {
         }
     }
 
-    public int remove() {
+    @Override
+    public int remove(int key) {
         if (isEmpty()) throw new RuntimeException("Empty");
 
         int element = this.heap[0];
@@ -117,6 +122,14 @@ public class MinHeap {
             newHeap[i] = this.heap[i];
         
         this.heap = newHeap;
+    }
+
+    @Override
+    public int search(int key) {
+        for (int i = 0; i <= this.tail; i++) {
+            if (this.heap[i] == key) return i;
+        }
+        return -1;
     }
 
 }
