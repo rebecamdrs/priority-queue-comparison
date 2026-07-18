@@ -64,7 +64,7 @@ public class MinHeap implements PriorityQueue {
     }
 
     public int peek() {
-        if (isEmpty()) throw new IllegalStateException("Dmpty");
+        if (isEmpty()) throw new IllegalStateException("Empty");
         return this.heap[0];
     }
 
