@@ -2,9 +2,9 @@ package heap;
 
 import java.util.Arrays;
 
-import model.InterfaceEstrutura;
+import model.PriorityQueue;
 
-public class MinHeap implements InterfaceEstrutura {
+public class MinHeap implements PriorityQueue {
     private int[] heap;
     private int tail;
 
