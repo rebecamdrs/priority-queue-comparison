@@ -107,7 +107,7 @@ public class MinHeap implements PriorityQueue {
      * @throws RuntimeException se o heap estiver vazio
      */
     @Override
-    public int remove(int key) {
+    public int removeMin() {
         if (isEmpty()) throw new RuntimeException("Empty");
 
         int element = this.heap[0];
