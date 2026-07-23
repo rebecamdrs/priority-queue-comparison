@@ -1,12 +1,15 @@
+package experiment;
+
 import model.PriorityQueue;
+import treemap.TreeMapPriorityQueue;
 import heap.MinHeap;
 
 public class Benchmark {
     //Configurações
     private static final int[] TAMANHOS = {1000, 10000, 100000, 1000000};
     private static final String[] CENARIOS = {"Aleatorio", "Crescente", "Decrescente", "Repetido"};
-    private static final String[] ESTRUTURAS = {"MinHeap"};
-    // private static final String[] ESTRUTURAS = {"MinHeap", "TreeMap"};
+    // private static final String[] ESTRUTURAS = {"MinHeap"};
+    private static final String[] ESTRUTURAS = {"MinHeap", "TreeMap"};
     private static final int REPETICOES = 10;
     private static final int WARMUP_ROUNDS = 3;
 
@@ -94,8 +97,8 @@ public class Benchmark {
     private static PriorityQueue instanciarFila(String estrutura, int tamanho) {
         if (estrutura.equals("MinHeap"))
             return new MinHeap(tamanho);
-        // else if (estrutura.equals("TreeMap"))
-        //     return new TreeMap();
+        else if (estrutura.equals("TreeMap"))
+            return new TreeMapPriorityQueue();
         throw new IllegalArgumentException("Estrutura não suportada");
     }
 

@@ -1,3 +1,5 @@
+package experiment;
+
 import java.util.Random;
 
 /**
