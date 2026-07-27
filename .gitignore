@@ -1,0 +1,13 @@
+# Build output
+bin/
+build/
+out/
+
+# Compiled class files
+*.class
+
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/launch.json
+!.vscode/extensions.json
