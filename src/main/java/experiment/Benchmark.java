@@ -8,7 +8,6 @@ public class Benchmark {
     //Configurações
     private static final int[] TAMANHOS = {1000, 10000, 100000, 1000000};
     private static final String[] CENARIOS = {"Aleatorio", "Crescente", "Decrescente", "Repetido"};
-    // private static final String[] ESTRUTURAS = {"MinHeap"};
     private static final String[] ESTRUTURAS = {"MinHeap", "TreeMap"};
     private static final int REPETICOES = 10;
     private static final int WARMUP_ROUNDS = 3;
