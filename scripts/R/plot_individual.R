@@ -9,12 +9,9 @@ library(ggplot2)
 # Leitura dos dados
 # ------------------------------------------------------------------------------
 # Lê o arquivo CSV com os resultados dos experimentos gerados pelo Benchmark.
-# A codificação UTF-16LE é utilizada porque o arquivo foi gerado no PowerShell.
 dados <- read.csv(
   "results/data/execution.csv",
-  header = TRUE,
-  sep = ",",
-  fileEncoding = "UTF-16LE"
+  header = TRUE, sep = ","
 )
 
 # Converte as colunas númericas para o tipo adequado

@@ -160,6 +160,6 @@ public class Benchmark {
         // Calcula o desvio padrão
         double desvioPadrao = Math.sqrt(somaDiferencas / tempos.length);
         
-        System.out.printf(java.util.Locale.US, "%s,%s,%d,%s,%.2f,%.2f\n", estrutura, cenario, tamanho, operacao, media, desvioPadrao);
+        System.out.printf(java.util.Locale.US, "%s,%s,%d,%s,%.2f,%.2f%n", estrutura, cenario, tamanho, operacao, media, desvioPadrao);
     }
 }

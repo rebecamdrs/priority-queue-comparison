@@ -34,27 +34,27 @@ public class DataGenerator {
                     dados[i] = rand.nextInt(tamanho * 10);
                 break;
             
-                case "Crescente":
-                    // Gera dados ordenados sequencialmente.
-                    for (int i = 0; i < tamanho; i++)
-                        dados[i] = i;
-                    break;
-                
-                case "Decrescente":
-                    // Gera dados em ordem reversa.
-                    for (int i = 0; i < tamanho; i++)
-                        dados[i] = tamanho - i;
-                    break;
-                
-                case "Repetido":
-                    // Gera dados com prioridades limitadas (baixa cardinalidade).
-                    for (int i = 0; i < tamanho; i++)
-                        // Limita as prioridades de 0 a 9, forçando colisões e repetições massivas
-                        dados[i] = rand.nextInt(10);
-                    break;
-                
-                default:
-                    throw new IllegalArgumentException("Cenário desconhecido: " + cenario);
+            case "Crescente":
+                // Gera dados ordenados sequencialmente.
+                for (int i = 0; i < tamanho; i++)
+                    dados[i] = i;
+                break;
+            
+            case "Decrescente":
+                // Gera dados em ordem reversa.
+                for (int i = 0; i < tamanho; i++)
+                    dados[i] = tamanho - i;
+                break;
+            
+            case "Repetido":
+                // Gera dados com prioridades limitadas (baixa cardinalidade).
+                for (int i = 0; i < tamanho; i++)
+                    // Limita as prioridades de 0 a 9, forçando colisões e repetições massivas
+                    dados[i] = rand.nextInt(10);
+                break;
+            
+            default:
+                throw new IllegalArgumentException("Cenário desconhecido: " + cenario);
         }
 
         return dados;
