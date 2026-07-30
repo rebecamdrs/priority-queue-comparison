@@ -3,6 +3,8 @@ package experiment;
 import model.PriorityQueue;
 import static experiment.Benchmark.*;
 
+import java.util.Random;
+
 /**
  * Classe responsável por executar os testes de desempenho (benchmarking) comparando diferentes 
  * implementações de Fila de Prioridade. São avaliadas as operações de inserção e remoção do menor 
@@ -119,13 +121,15 @@ public class TimeBenchmark {
     private static void medirBusca(String nomeEstrutura, String cenario, int tamanho, int[] dados) {
         long[] tempos = new long[REPETICOES];
 
+        int[] dadosBusca = geraDadosBusca(tamanho/100, dados);
+
         // Fase de Warm-up (não contabilizada)
         for (int i = 0; i < WARMUP_ROUNDS; i++) {
             PriorityQueue queue = instanciarFila(nomeEstrutura, tamanho);
             for (int valor: dados)
                 queue.add(valor);
             
-            for (int valor: dados)
+            for (int valor: dadosBusca)
                 queue.search(valor);
         }
 
@@ -141,7 +145,7 @@ public class TimeBenchmark {
             System.gc();
 
             long inicio = System.nanoTime();
-            for (int valor: dados)
+            for (int valor: dadosBusca)
                 queue.search(valor);
             long fim = System.nanoTime();
 
@@ -149,6 +153,24 @@ public class TimeBenchmark {
         }
 
         imprimirEstatisticas(nomeEstrutura, cenario, tamanho, "Busca", tempos);
+    }
+
+    /**
+     * Função que gera uma lista de elementos a serem buscados. Otimizando a função de medirBusca.
+     * 
+     * @param buscas quantidade de buscas que serão feitas.
+     * @param dados lista de elementos presentes na estrutura.
+     * @return uma lista contendo os elementos selecionados para serem buscados.
+     */
+    private static int[] geraDadosBusca(int buscas, int[] dados) {
+        int[] dadosBusca = new int[buscas];
+        Random random = new Random(42);
+
+        for (int i = 0; i < buscas; i++) {
+            dadosBusca[i] = dados[random.nextInt(dados.length)];
+        }
+
+        return dadosBusca;
     }
 
 }

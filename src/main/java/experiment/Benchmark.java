@@ -11,11 +11,11 @@ import heap.MinHeap;
 public class Benchmark {
 
     // Configurações Globais do Experimento
-    protected static final int[] TAMANHOS = {1000, 10000, 100000, 1000000};
-    protected static final String[] CENARIOS = {"Aleatorio", "Crescente", "Decrescente", "Repetido"};
-    protected static final String[] ESTRUTURAS = {"MinHeap", "TreeMap"};
-    protected static final int REPETICOES = 10;
-    protected static final int WARMUP_ROUNDS = 3;
+    static final int[] TAMANHOS = {1000, 10000, 100000, 1000000};
+    static final String[] CENARIOS = {"Aleatorio", "Crescente", "Decrescente", "Repetido"};
+    static final String[] ESTRUTURAS = {"MinHeap", "TreeMap"};
+    static final int REPETICOES = 10;
+    static final int WARMUP_ROUNDS = 3;
 
     
     /**
@@ -25,7 +25,7 @@ public class Benchmark {
      * @param tamanho   Capacidade inicial da fila.
      * @return          Uma instância da fila de prioridade correspondente.
      */
-    protected static PriorityQueue instanciarFila(String estrutura, int tamanho) {
+    static PriorityQueue instanciarFila(String estrutura, int tamanho) {
         if (estrutura.equals("MinHeap"))
             return new MinHeap(tamanho);
         else if (estrutura.equals("TreeMap"))
@@ -42,7 +42,7 @@ public class Benchmark {
      * @param operacao  Operação realizada.
      * @param valores   Vetor contendo os valores medidos (tempo em nanossegundos e memória em bytes).
      */
-    protected static void imprimirEstatisticas(String estrutura, String cenario, int tamanho, String operacao, long[] valores) {
+    static void imprimirEstatisticas(String estrutura, String cenario, int tamanho, String operacao, long[] valores) {
         double media = 0;
         for (long t: valores)
             media += t;

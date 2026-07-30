@@ -10,28 +10,28 @@ library(ggplot2)
 # Leitura dos dados
 # ------------------------------------------------------------------------------
 # Lê o arquivo CSV com os resultados dos experimentos gerados pelo Benchmark.
-dados <- read.csv(
-  "results/data/execution.csv",
+dados_tempo <- read.csv(
+  "results/data/executionTime.csv",
   header = TRUE, sep = ","
 )
 
 # Converte as colunas númericas para o tipo adequado
-dados$tamanho <- as.numeric(dados$tamanho)
-dados$tempoMedio_ns <- as.numeric(dados$tempoMedio_ns)
-dados$desvioPadrao <- as.numeric(dados$desvioPadrao)
+dados_tempo$tamanho <- as.numeric(dados_tempo$tamanho)
+dados_tempo$tempoMedio_ns <- as.numeric(dados_tempo$tempoMedio_ns)
+dados_tempo$desvioPadrao <- as.numeric(dados_tempo$desvioPadrao)
 
 # Obtém todas as operações testadas (Add e RemoveMin)
-operacoes <- unique(dados$operacao)
+operacoes <- unique(dados_tempo$operacao)
 
 # ------------------------------------------------------------------------------
-# Geração dos gráficos
+# Geração dos gráficos de tempo
 # ------------------------------------------------------------------------------
 # Para cada operação é criado um gráfico contendo todos os cenários, permitindo
 # comparar o desempenho das implementações MinHeap e TreeMap.
 for (op in operacoes) {
 
   # Filtra apenas os resultados da operação atual
-  df <- subset(dados, operacao == op)
+  df <- subset(dados_tempo, operacao == op)
 
   # Cria o gráfico
   grafico <- ggplot(
@@ -83,7 +83,7 @@ for (op in operacoes) {
   # Um arquivo é gerado para cada operação avaliada.
   # ------------------------------------------------------------------------------
   ggsave(
-    filename = paste0("results/plots/combined/", op, ".png"),
+    filename = paste0("results/plots/time/combined/", op, ".png"),
     plot = grafico,
     width = 10,
     height = 8

@@ -17,7 +17,7 @@ public class MemoryBenchmark {
      */
     public static void main(String[] args) {
         //Cabeçalho do arquivo CSV de saída
-        System.out.println("estrutura,cenario,tamanho,operacao,mediabytes,desvioPadraoBytes");
+        System.out.println("estrutura,cenario,tamanho,operacao,memoriaMedia_b,desvioPadrao");
 
         for (String estrutura: ESTRUTURAS) {
             for (int tamanho: TAMANHOS) {
