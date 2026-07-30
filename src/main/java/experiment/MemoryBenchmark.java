@@ -10,6 +10,8 @@ import static experiment.Benchmark.*;
  * Prioridade em diferentes tamanhos de entrada e cenários de dados.
  */
 public class MemoryBenchmark {
+    private static final double[] PERCENTUAIS_DUPLICATAS = {0.0, 0.25, 0.5, 0.75, 1};
+
     /**
      * Executa todos os experimentos para cada combinação de estrutura, tamanho de entrada e cenário, 
      * imprimindo os resultados em formato CSV.
@@ -21,8 +23,9 @@ public class MemoryBenchmark {
 
         for (String estrutura: ESTRUTURAS) {
             for (int tamanho: TAMANHOS) {
-                for (String cenario: CENARIOS) {
-                    int[] dados = DataGenerator.gerar(tamanho, cenario);
+                for (double percentual: PERCENTUAIS_DUPLICATAS) {
+                    int[] dados = DataGenerator.gerarParaAnaliseMemoria(tamanho, percentual);
+                    String cenario = "Duplicatas_" + percentual * 100;
                     medirMemoria(estrutura, cenario, tamanho, dados);
                 }
             }

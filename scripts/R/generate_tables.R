@@ -21,13 +21,15 @@ dados_memoria <- read.csv(
 
 # Converte as colunas númericas para o tipo adequado
 dados_tempo$tamanho <- as.numeric(dados_tempo$tamanho)
+dados_memoria$tamanho <- as.numeric(dados_memoria$tamanho)
 dados_tempo$tempoMedio_ns <- round(as.numeric(dados_tempo$tempoMedio_ns), 2)
 dados_memoria$memoriaMedia_b <- round(as.numeric(dados_memoria$memoriaMedia_b), 2)
 dados_tempo$desvioPadrao <- round(as.numeric(dados_tempo$desvioPadrao), 2)
 dados_memoria$desvioPadrao <- round(as.numeric(dados_memoria$desvioPadrao), 2)
 
 # Cenários e operções presentes no arquivo
-cenarios <- unique(dados_tempo$cenario)
+cenarios_tempo <- unique(dados_tempo$cenario)
+cenarios_memoria <- unique(dados_memoria$cenario)
 operacoes <- unique(dados_tempo$operacao)
 
 # ------------------------------------------------------------------------------
@@ -51,7 +53,7 @@ tema_estilizado <- ttheme_default(
 # ------------------------------------------------------------------------------
 # Para cada combinação de cenário e operação é criada uma tabela contendo: Tempo 
 # médio de execução; Desvio padrão e Comparação entre MinHeap e TreeMap.
-for (cen in cenarios) {
+for (cen in cenarios_tempo) {
   for (op in operacoes) {
     
     # Filtra apenas os resultados do cenário e operação atuais
@@ -127,8 +129,7 @@ for (cen in cenarios) {
 # ------------------------------------------------------------------------------
 # Para cada combinação de cenário e operação é criada uma tabela contendo: Memória
 # média utilizada; Desvio padrão e Comparação entre MinHeap e TreeMap.
-#!!!!!!!!!!!!!!!!! tem que ajeitar os cenarios disso aqui
-for (cen in cenarios) {
+for (cen in cenarios_memoria) {
   tabela_memoria <- subset(dados_memoria, cenario == cen)
 
   if (nrow(tabela_memoria) == 0) next

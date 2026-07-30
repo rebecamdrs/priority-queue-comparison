@@ -24,7 +24,7 @@ dados_tempo$tempoMedio_ns <- as.numeric(dados_tempo$tempoMedio_ns)
 dados_tempo$desvioPadrao <- as.numeric(dados_tempo$desvioPadrao)
 
 dados_memoria$tamanho <- as.numeric(dados_memoria$tamanho)
-dados_memoria$tempoMedio_ns <- as.numeric(dados_memoria$memoriaMedia_b)
+dados_memoria$memoriaMedia_b <- as.numeric(dados_memoria$memoriaMedia_b)
 dados_memoria$desvioPadrao <- as.numeric(dados_memoria$desvioPadrao)
 
 # Obtém todas as operações e cenários testadas
@@ -99,10 +99,10 @@ for (op in operacoes) {
       height = 6
     )
   }
-
+}
 
 # ------------------------------------------------------------------------------
-# Geração dos gráficos de tempo
+# Geração dos gráficos de memória
 # ------------------------------------------------------------------------------
 # Para cada combinação de operação e cenário é criado um gráfico independente,
 # permitindo comparar o desempenho das implementações MinHeap e TreeMap.
@@ -110,7 +110,7 @@ for (op in operacoes) {
 
 for (cen in cenarios_memoria) {
   # Filtra apenas os dados correspondentes à operação e ao cenário atuais
-  df <- subset(dados_memoria, operacao == op & cenario == cen)
+  df <- subset(dados_memoria, cenario == cen)
   
   # Caso não existam dados para essa combinação, passa para a próxima
     if (nrow(df) == 0) next

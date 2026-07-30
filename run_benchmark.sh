@@ -10,7 +10,8 @@ mkdir -p out
 mkdir -p results/data
 mkdir -p results/plots/time/combined
 mkdir -p results/plots/time/individual
-mkdir -p results/plots/memory
+mkdir -p results/plots/memory/combined
+mkdir -p results/plots/memory/individual
 mkdir -p results/tables/time
 mkdir -p results/tables/memory
 

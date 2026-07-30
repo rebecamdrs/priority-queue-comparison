@@ -59,4 +59,33 @@ public class DataGenerator {
 
         return dados;
     }
+
+    /**
+     * Gera um array de inteiros para uso na análise de gasto de memória. Tendo uma porcentagem exata de valores duplicados.
+     * @param tamanho Tamanho do array a ser gerado.
+     * @param percentualDuplicatas Percentual de elementos duplicados no array.
+     * @return Retorna um array com a quantidade de elementos e o percentual de duplicatas exigido.
+     */
+    public static int[] gerarParaAnaliseMemoria(int tamanho, double percentualDuplicatas) {
+        if (percentualDuplicatas < 0.0 || percentualDuplicatas > 1.0)
+            throw new IllegalArgumentException("Percentual de duplicatas inválido");
+
+        int[] dados = new int[tamanho];
+        Random rand = new Random(SEED);
+
+        int qDuplicatas = (int) Math.round(tamanho * percentualDuplicatas);
+        int qNaoDuplicatas = tamanho - qDuplicatas;
+
+        // Coloca elementos distintos no array de dados.
+        for (int i = 0; i < qNaoDuplicatas; i++) {
+            dados[i] = i;
+        }
+
+        // Completa o array de dados com números duplicados.
+        for (int i = qNaoDuplicatas; i < tamanho; i++) {
+            dados[i] = rand.nextInt(Math.max(1, qNaoDuplicatas));
+        }
+
+        return dados;
+    }
 }
