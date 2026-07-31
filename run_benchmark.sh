@@ -7,13 +7,25 @@ echo ""
 
 echo "[0/4] Preparando estrutura de pastas..."
 mkdir -p out
+mkdir -p lib
 mkdir -p results/data
-mkdir -p results/plots/combined
-mkdir -p results/plots/individual
-mkdir -p results/tables
+mkdir -p results/plots/time/combined
+mkdir -p results/plots/time/individual
+mkdir -p results/plots/memory/combined
+mkdir -p results/plots/memory/individual
+mkdir -p results/tables/time
+mkdir -p results/tables/memory
+
+# Baixa o JOL (Java Object Layout) se ainda não existir. Usado só pelo MemoryBenchmark,
+# pra medir o tamanho real dos objetos sem depender do Garbage Collector.
+JOL_JAR="lib/jol-core-0.17.jar"
+if [ ! -f "$JOL_JAR" ]; then
+    echo "[0.5/4] Baixando dependencia JOL..."
+    curl -sL -o "$JOL_JAR" https://repo1.maven.org/maven2/org/openjdk/jol/jol-core/0.17/jol-core-0.17.jar
+fi
 
 echo "[1/4] Compilando arquivos Java..."
-javac -d out src/main/java/model/*.java src/main/java/heap/*.java src/main/java/treemap/*.java src/main/java/experiment/*.java
+javac -cp "$JOL_JAR" -d out src/main/java/model/*.java src/main/java/heap/*.java src/main/java/treemap/*.java src/main/java/experiment/*.java
 
 if [ $? -ne 0 ]; then
     echo ""
@@ -23,11 +35,20 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "[1.5/4] Executando testes e gerando CSV..."
-java -cp out experiment.Benchmark > results/data/execution.csv
-
+java -cp "out:$JOL_JAR" experiment.TimeBenchmark > results/data/executionTime.csv
 if [ $? -ne 0 ]; then
     echo ""
-    echo "[ERRO] O Benchmark falhou durante a execucao!"
+    echo "[ERRO] O TimeBenchmark falhou durante a execucao!"
+    read -p "Pressione Enter para sair..."
+    exit 1
+fi
+
+java -cp "out:$JOL_JAR" experiment.MemoryBenchmark | grep -v '^#' > results/data/executionMemory.csv
+JAVA_EXIT=${PIPESTATUS[0]}
+
+if [ $JAVA_EXIT -ne 0 ]; then
+    echo ""
+    echo "[ERRO] O MemoryBenchmark falhou durante a execucao!"
     read -p "Pressione Enter para sair..."
     exit 1
 fi
