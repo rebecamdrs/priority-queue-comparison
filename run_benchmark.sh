@@ -54,13 +54,16 @@ if [ $JAVA_EXIT -ne 0 ]; then
 fi
 
 echo "[2/4] Gerando graficos agrupados..."
-Rscript scripts/R/plot_combined.R
+Rscript scripts/R/plot_combined_time.R
+Rscript scripts/R/plot_combined_memory.R
 
 echo "[3/4] Gerando graficos individuais..."
-Rscript scripts/R/plot_individual.R
+Rscript scripts/R/plot_individual_time.R
+Rscript scripts/R/plot_individual_memory.R
 
 echo "[4/4] Gerando tabelas comparativas..."
-Rscript scripts/R/generate_tables.R
+Rscript scripts/R/generate_tables_time.R
+Rscript scripts/R/generate_tables_memory.R
 
 echo ""
 echo "==========================================="

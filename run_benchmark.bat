@@ -14,6 +14,17 @@ if not exist "results\plots\combined" mkdir "results\plots\combined"
 if not exist "results\plots\individual" mkdir "results\plots\individual"
 if not exist "results\tables" mkdir "results\tables"
 
+REM Baixa o JOL (Java Object Layout) se ainda nao existir. Usado so pelo MemoryBenchmark,
+REM pra medir o tamanho real dos objetos sem depender do Garbage Collector.
+set "JOL_JAR=lib\jol-core-0.17.jar"
+
+if not exist "%JOL_JAR%" (
+    echo [0.5/4] Baixando dependencia JOL...
+    REM Cria a pasta lib caso ela ainda nao exista para evitar erro no download
+    if not exist "lib" mkdir "lib"
+    curl -sL -o "%JOL_JAR%" https://repo1.maven.org/maven2/org/openjdk/jol/jol-core/0.17/jol-core-0.17.jar
+)
+
 echo [1/4] Compilando arquivos Java...
 javac -d out src/main/java/model/*.java src/main/java/heap/*.java src/main/java/treemap/*.java src/main/java/experiment/*.java
 
@@ -37,13 +48,16 @@ if %ERRORLEVEL% NEQ 0 (
 )
 
 echo [2/4] Gerando graficos agrupados...
-Rscript scripts/R/plot_combined.R
+Rscript scripts/R/plot_combined_time.R
+Rscript scripts/R/plot_combined_memory.R
 
 echo [3/4] Gerando graficos individuais...
-Rscript scripts/R/plot_individual.R
+Rscript scripts/R/plot_individual_time.R
+Rscript scripts/R/plot_individual_memory.R
 
 echo [4/4] Gerando tabelas comparativas...
-Rscript scripts/R/generate_tables.R
+Rscript scripts/R/generate_tables_time.R
+Rscript scripts/R/generate_tables_memory.R
 
 echo.
 echo ===========================================
