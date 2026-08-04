@@ -138,6 +138,19 @@ public class MinHeap implements PriorityQueue {
     public int size() {
         return this.tail + 1;
     }
+
+    /**
+     * Pesquisa por um elemento no heap.
+     *
+     * @return o índice do elemento pesquisado.
+     */
+    @Override
+    public int search(int key) {
+        for (int i = 0; i <= this.tail; i++) {
+            if (this.heap[i] == key) return i;
+        }
+        return -1;
+    }
     
     @Override
     public String toString() {
@@ -189,14 +202,6 @@ public class MinHeap implements PriorityQueue {
             newHeap[i] = this.heap[i];
         
         this.heap = newHeap;
-    }
-
-    @Override
-    public int search(int key) {
-        for (int i = 0; i <= this.tail; i++) {
-            if (this.heap[i] == key) return i;
-        }
-        return -1;
     }
 
 }
