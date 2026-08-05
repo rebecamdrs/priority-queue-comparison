@@ -14,8 +14,8 @@ public class Benchmark {
     static final int[] TAMANHOS = {1000, 10000, 100000, 1000000};
     static final String[] CENARIOS = {"Aleatorio", "Crescente", "Decrescente", "Repetido"};
     static final String[] ESTRUTURAS = {"MinHeap", "TreeMap"};
-    static final int REPETICOES = 10;
-    static final int WARMUP_ROUNDS = 3;
+    static final int REPETICOES = 40;
+    static final int WARMUP_ROUNDS = 5;
 
     
     /**
