@@ -66,6 +66,22 @@ for (cen in cenarios_tempo) {
     # Ordena pelo tamanho da entrada
     tabela_larga_tempo <- tabela_larga_tempo[order(tabela_larga_tempo$tamanho), ]
     
+    # Calcula quantas vezes o TreeMap foi mais lento (ou mais rápido)
+    tabela_larga_tempo$razao <- tabela_larga_tempo$tempoMedio_ns_TreeMap / tabela_larga_tempo$tempoMedio_ns_MinHeap
+    
+    # Formata a razão com 2 casas decimais
+    tabela_larga_tempo$razao <- paste0(format(round(tabela_larga_tempo$razao, 2), nsmall = 2, decimal.mark = ","), "x")
+
+    # Reordena as colunas
+    tabela_larga_tempo <- tabela_larga_tempo[, c(
+      "tamanho",
+      "tempoMedio_ns_MinHeap", 
+      "tempoMedio_ns_TreeMap", 
+      "razao", 
+      "desvioPadrao_MinHeap", 
+      "desvioPadrao_TreeMap"
+    )]
+
     # Formatação  do tamanho da entrada em potência de 10
     tabela_larga_tempo$tamanho <- paste0("10^", log10(tabela_larga_tempo$tamanho))
 
@@ -83,6 +99,7 @@ for (cen in cenarios_tempo) {
       "Tamanho (n)",
       "Tempo Médio (ns)\nHeap",
       "Tempo Médio (ns)\nTreeMap",
+      "Razão\n(TreeMap / Heap)",
       "Desvio Padrão (ns)\nHeap",
       "Desvio Padrão (ns)\nTreeMap"
     )
@@ -99,6 +116,7 @@ for (cen in cenarios_tempo) {
     
     # Cria a tabela gráfica
     tabela_grob_tempo <- tableGrob(tabela_larga_tempo, rows = NULL, theme = tema_estilizado)
+    tabela_grob_tempo$widths[4] <- unit(2.2, "in")
 
     # Título da tabela
     titulo_texto <- paste("Cenário:", cen, "| Operação:", op)
@@ -108,7 +126,7 @@ for (cen in cenarios_tempo) {
     )
 
     # Salva a imagem
-    png(filename = nome_arquivo, width = 1065, height = 280, res = 100)
+    png(filename = nome_arquivo, width = 1280, height = 280, res = 100)
     
     grid.arrange(titulo_grob, tabela_grob_tempo, nrow = 2, heights = c(0.15, 0.85))
     

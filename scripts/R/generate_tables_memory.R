@@ -63,6 +63,22 @@ for (cen in cenarios_memoria) {
     # Ordena pelo tamanho da entrada
     tabela_larga_memoria <- tabela_larga_memoria[order(tabela_larga_memoria$tamanho), ]
     
+    # Calcula quantas vezes o TreeMap foi mais lento (ou mais rápido)
+    tabela_larga_memoria$razao <- tabela_larga_memoria$memoriaMedia_b_TreeMap / tabela_larga_memoria$memoriaMedia_b_MinHeap
+    
+    # Formata a razão com 2 casas decimais
+    tabela_larga_memoria$razao <- paste0(format(round(tabela_larga_memoria$razao, 2), nsmall = 2, decimal.mark = ","), "x")
+
+    # Reordena as colunas
+    tabela_larga_memoria <- tabela_larga_memoria[, c(
+      "tamanho",
+      "memoriaMedia_b_MinHeap", 
+      "memoriaMedia_b_TreeMap", 
+      "razao", 
+      "desvioPadrao_MinHeap", 
+      "desvioPadrao_TreeMap"
+    )]
+
     # Formatação  do tamanho da entrada em potência de 10
     tabela_larga_memoria$tamanho <- paste0("10^", log10(tabela_larga_memoria$tamanho))
 
@@ -80,6 +96,7 @@ for (cen in cenarios_memoria) {
       "Tamanho (n)",
       "Memória Média (b)\nHeap",
       "Memória Média (b)\nTreeMap",
+      "Razão\n(TreeMap / Heap)",
       "Desvio Padrão (b)\nHeap",
       "Desvio Padrão (b)\nTreeMap"
     )
@@ -95,6 +112,7 @@ for (cen in cenarios_memoria) {
     
     # Cria a tabela gráfica
     tabela_grob_memoria <- tableGrob(tabela_larga_memoria, rows = NULL, theme = tema_estilizado)
+    tabela_grob_memoria$widths[4] <- unit(2.2, "in")
 
     # Título da tabela
     titulo_texto <- paste("Cenário:", cen)
@@ -104,7 +122,7 @@ for (cen in cenarios_memoria) {
     )
 
     # Salva a imagem
-    png(filename = nome_arquivo, width = 1065, height = 280, res = 100)
+    png(filename = nome_arquivo, width = 1280, height = 280, res = 100)
     
     grid.arrange(titulo_grob, tabela_grob_memoria, nrow = 2, heights = c(0.15, 0.85))
     
