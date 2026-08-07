@@ -26,6 +26,8 @@ Ambas as estruturas implementam a mesma interface (`PriorityQueue`), oferecendo 
 - **Tempo de execução** das operações de inserção, remoção do mínimo e busca, sob os cenários `Aleatorio`, `Crescente`, `Decrescente` e `Repetido`.
 - **Consumo de memória**, sob cenários com diferentes percentuais de valores duplicados (`0%`, `25%`, `50%`, `75%`, `100%`).
 
+### Relatório
+
 O relatório completo, com a fundamentação teórica, metodologia, resultados e discussão, está disponível [aqui.](https://docs.google.com/document/d/1wDGolAAYQ0DbdY7WYPRp6U4n4gpdKcyXToS_H52ECYI/edit?tab=t.0)
 
 ## Requisitos 
@@ -52,7 +54,7 @@ O script executa:
 4. Geração dos gráficos combinados e individuais (R)
 5. Geração das tabelas comparativas em PNG (R)
 
-Os resultados ficam disponíveis na pasta `results/`.
+Os resultados ficam disponíveis na pasta [`results/`](results/).
 
 ## Principais resultados
 
@@ -61,6 +63,7 @@ Os resultados ficam disponíveis na pasta `results/`.
 O MinHeap foi superior em todos os cenários testados, apresentando desempenho muito mais estável à medida que o volume de dados cresceu.
 
 ### Remoção do mínimo
+
 O TreeMap superou o MinHeap em volumes maiores de dados. Embora o MinHeap devesse ser teoricamente superior por manter uma árvore de menor altura, sua implementação recursiva gerou *overhead* na pilha de chamadas, enquanto o TreeMap utilizou uma abordagem iterativa (detalhes na Seção 6.2).
 
 ### Busca
@@ -73,3 +76,10 @@ O MinHeap manteve uso constante de memória independente da taxa de duplicação
 ## Limitações
 
 Os resultados são específicos das implementações analisadas neste projeto, obtidos em uma única máquina e versão de JVM, não devendo ser generalizados como comparação universal entre `TreeMap` e `MinHeap`. Detalhes na Seção 7 do relatório.
+
+## Autoras
+
+- Lara Giovanna de Moura Soares
+- Gabriela Ramalho da Silva
+- Rebeca de Medeiros Silva
+- Stefany Nicole Santos Alves 
